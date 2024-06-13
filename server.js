@@ -9,7 +9,6 @@ const compression = require("compression");
 const cors = require("cors");
 const { createHandler } = require("graphql-http/lib/use/express");
 const { schema } = require("./src/api/graphQL/schema");
-const restAPI = require("./src/api/restful");
 const { root } = require("./src/api/graphQL/route/root");
 require("./src/models/db");
 
@@ -51,16 +50,16 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Create and use the GraphQL handler.
-app.all(
-  "/graphql",
-  createHandler({
-    schema: schema,
-    rootValue: root,
-  })
-);
+// // Create and use the GraphQL handler.
+// app.all(
+//   "/graphql",
+//   createHandler({
+//     schema: schema,
+//     rootValue: root,
+//   })
+// );
 
-app.use("/", restAPI);
+require("./src/api/restful")(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -86,6 +85,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+module.exports = app;
