@@ -47,4 +47,4 @@ process.on("SIGINT", function () {
   });
 });
 
-require("./schemas/index");
+require("./models/index");

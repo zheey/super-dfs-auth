@@ -1,9 +1,6 @@
-const registrationRoutes = require("./registration");
-const loginRoutes = require("./login");
-const tokenRoutes = require("./tokenRefresh");
+const express = require("express");
+const router = express.Router();
 
-module.exports = {
-  loginRoutes,
-  registrationRoutes,
-  tokenRoutes,
-};
+router.get("/", []);
+
+module.exports = router;

@@ -10,7 +10,8 @@ const cors = require("cors");
 const { createHandler } = require("graphql-http/lib/use/express");
 const { schema } = require("./src/api/graphQL/schema");
 const { root } = require("./src/api/graphQL/route/root");
-require("./src/models/db");
+const passport = require("passport");
+require("./src/repository/db");
 
 const ENV = process.env.NODE_ENV;
 
@@ -32,6 +33,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.options("*", cors());
+
+app.use(passport.initialize());
+require("./src/api/auth/passportAuth")(passport);
 
 //Enable CORS from client side
 app.use(function (req, res, next) {
